@@ -1,9 +1,9 @@
 import pickle
 from datetime import datetime
 
-import gym
+import gymnasium as gym
 import numpy as np
-from gym import spaces
+from gymnasium import spaces
 
 
 class FilterAction(gym.ActionWrapper):
@@ -47,15 +47,15 @@ class NotVecNormalize(gym.Wrapper):
         with open(path, "rb") as file_handler:
             self.vec_normalize = pickle.load(file_handler)
 
-    def reset(self):
-        observation = self.env.reset()
-        return self.vec_normalize.normalize_obs(observation)
+    def reset(self, **kwargs):
+        observation, info = self.env.reset(**kwargs)
+        return self.vec_normalize.normalize_obs(observation), info
 
     def step(self, action):
-        observation, reward, done, info = self.env.step(action)
+        observation, reward, done, truncated, info = self.env.step(action)
         observation = self.vec_normalize.normalize_obs(observation)
         reward = self.vec_normalize.normalize_reward(reward)
-        return observation, reward, done, info
+        return observation, reward, done, truncated, info
 
 
 class PolishedDonkeyCompatibility(gym.Wrapper):
@@ -104,12 +104,13 @@ class PolishedDonkeyCompatibility(gym.Wrapper):
             high=np.array([30, 30, 30, 3e-3, 6e-3], dtype=np.float32) * 0.1,
         )
 
-    def reset(self):
-        return self.observation(super().reset())
+    def reset(self, **kwargs):
+        observation, info = super().reset(**kwargs)
+        return self.observation(observation), info
 
     def step(self, action):
-        observation, reward, done, info = super().step(self.action(action))
-        return self.observation(observation), reward, done, info
+        observation, reward, done, truncated, info = super().step(self.action(action))
+        return self.observation(observation), reward, done, truncated, info
 
     def observation(self, observation):
         return np.array(
@@ -152,7 +153,7 @@ class RecordEpisode(gym.Wrapper):
 
         self.has_previously_run = False
 
-    def reset(self):
+    def reset(self, **kwargs):
         if self.has_previously_run:
             self.previous_observations = self.observations
             self.previous_rewards = self.rewards
@@ -162,7 +163,7 @@ class RecordEpisode(gym.Wrapper):
             self.previous_t_end = datetime.now()
             self.previous_steps_taken = self.steps_taken
 
-        observation = self.env.reset()
+        observation, info = self.env.reset(**kwargs)
 
         self.observations = [observation]
         self.rewards = []
@@ -174,10 +175,10 @@ class RecordEpisode(gym.Wrapper):
 
         self.has_previously_run = True
 
-        return observation
+        return observation, info
 
     def step(self, action):
-        observation, reward, done, info = self.env.step(action)
+        observation, reward, done, truncated, info = self.env.step(action)
 
         self.observations.append(observation)
         self.rewards.append(reward)
@@ -185,4 +186,4 @@ class RecordEpisode(gym.Wrapper):
         self.actions.append(action)
         self.steps_taken += 1
 
-        return observation, reward, done, info
+        return observation, reward, done, truncated, info

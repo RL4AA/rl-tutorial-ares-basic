@@ -1,0 +1,24 @@
+{
+    "version": "cheetah-0.6",
+    "title": "unnamed",
+    "info": "This is a placeholder lattice description",
+    "root": "unnamed",
+    "elements": {
+        "AREASOLA1": ["Marker", {}],
+        "Drift_AREASOLA1": ["Drift", {"length": 0.17504000663757324}],
+        "AREAMQZM1": ["Quadrupole", {"length": 0.12200000137090683, "k1": 0.0, "misalignment": [0.0, 0.0], "tilt": 0.0}],
+        "Drift_AREAMQZM1": ["Drift", {"length": 0.42800000309944153}],
+        "AREAMQZM2": ["Quadrupole", {"length": 0.12200000137090683, "k1": 0.0, "misalignment": [0.0, 0.0], "tilt": 0.0}],
+        "Drift_AREAMQZM2": ["Drift", {"length": 0.20399999618530273}],
+        "AREAMCVM1": ["VerticalCorrector", {"length": 0.019999999552965164, "angle": 0.0}],
+        "Drift_AREAMCVM1": ["Drift", {"length": 0.20399999618530273}],
+        "AREAMQZM3": ["Quadrupole", {"length": 0.12200000137090683, "k1": 0.0, "misalignment": [0.0, 0.0], "tilt": 0.0}],
+        "Drift_AREAMQZM3": ["Drift", {"length": 0.17900000512599945}],
+        "AREAMCHM1": ["HorizontalCorrector", {"length": 0.019999999552965164, "angle": 0.0}],
+        "Drift_AREAMCHM1": ["Drift", {"length": 0.44999998807907104}],
+        "AREABSCR1": ["Screen", {"resolution": [2448, 2040], "pixel_size": [3.3198000437550945e-06, 2.4468999981763773e-06], "binning": 1, "misalignment": [0.0, 0.0], "is_active": true}]
+    },
+    "lattices": {
+        "unnamed": ["AREASOLA1", "Drift_AREASOLA1", "AREAMQZM1", "Drift_AREAMQZM1", "AREAMQZM2", "Drift_AREAMQZM2", "AREAMCVM1", "Drift_AREAMCVM1", "AREAMQZM3", "Drift_AREAMQZM3", "AREAMCHM1", "Drift_AREAMCHM1", "AREABSCR1"]
+    }
+}

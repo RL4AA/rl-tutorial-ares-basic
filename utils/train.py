@@ -2,16 +2,17 @@
 
 
 import pathlib
-import pickle
+import re
 from functools import partial
 
 import cheetah
 import cv2
-import gym
+import gymnasium as gym
 import numpy as np
+import torch
 import yaml
-from gym import spaces
-from gym.wrappers import (
+from gymnasium import spaces
+from gymnasium.wrappers import (
     FilterObservation,
     FlattenObservation,
     FrameStack,
@@ -20,6 +21,7 @@ from gym.wrappers import (
     TimeLimit,
 )
 from stable_baselines3 import PPO
+from stable_baselines3.common.callbacks import EvalCallback
 from stable_baselines3.common.monitor import Monitor
 from stable_baselines3.common.vec_env import DummyVecEnv, SubprocVecEnv, VecNormalize
 
@@ -132,10 +134,11 @@ def train(config):
         verbose=0,
     )
 
+    eval_callback = EvalCallback(eval_env=eval_env, eval_freq=500, n_eval_episodes=5)
+
     model.learn(
         total_timesteps=config["total_timesteps"],
-        eval_env=eval_env,
-        eval_freq=500,
+        callback=[eval_callback],
     )
 
     model.save(f"utils/models/{run_name}/model")
@@ -205,9 +208,11 @@ class ARESEA(gym.Env):
     target_beam_mode : str
         Setting of target beam on `reset`. Choose from `"constant"` or `"random"`. The
         `"constant"` setting requires `target_beam_values` to be set.
+    render_mode : str
+        Rendering mode. Choose from `"rgb_array"` or `"human"`.
     """
 
-    metadata = {"render.modes": ["rgb_array"], "video.frames_per_second": 2}
+    metadata = {"render.modes": ["human", "rgb_array"], "video.frames_per_second": 2}
 
     def __init__(
         self,
@@ -225,6 +230,7 @@ class ARESEA(gym.Env):
         target_sigma_y_threshold=2.4469e-6,
         threshold_hold=1,
         time_reward=-0.0,
+        render_mode="rgb_array",
     ):
         self.abort_if_off_screen = abort_if_off_screen
         self.action_mode = action_mode
@@ -240,6 +246,7 @@ class ARESEA(gym.Env):
         self.target_sigma_y_threshold = target_sigma_y_threshold
         self.threshold_hold = threshold_hold
         self.time_reward = time_reward
+        self.render_mode = render_mode
 
         # Create action space
         if self.action_mode == "direct":
@@ -268,11 +275,15 @@ class ARESEA(gym.Env):
                 low=np.array([-np.inf, 0, -np.inf, 0], dtype=np.float32),
                 high=np.array([np.inf, np.inf, np.inf, np.inf], dtype=np.float32),
             ),
-            "magnets": self.action_space
-            if self.action_mode.startswith("direct")
-            else spaces.Box(
-                low=np.array([-72, -72, -6.1782e-3, -72, -6.1782e-3], dtype=np.float32),
-                high=np.array([72, 72, 6.1782e-3, 72, 6.1782e-3], dtype=np.float32),
+            "magnets": (
+                self.action_space
+                if self.action_mode.startswith("direct")
+                else spaces.Box(
+                    low=np.array(
+                        [-72, -72, -6.1782e-3, -72, -6.1782e-3], dtype=np.float32
+                    ),
+                    high=np.array([72, 72, 6.1782e-3, 72, 6.1782e-3], dtype=np.float32),
+                )
             ),
             "target": spaces.Box(
                 low=np.array([-np.inf, 0, -np.inf, 0], dtype=np.float32),
@@ -285,7 +296,7 @@ class ARESEA(gym.Env):
         # Setup the accelerator (either simulation or the actual machine)
         self.setup_accelerator()
 
-    def reset(self):
+    def reset(self, **kwargs):
         self.reset_accelerator()
 
         if self.magnet_init_mode == "constant":
@@ -323,7 +334,7 @@ class ARESEA(gym.Env):
         }
         observation.update(self.get_accelerator_observation())
 
-        return observation
+        return observation, {}
 
     def step(self, action):
         # Perform action
@@ -417,9 +428,10 @@ class ARESEA(gym.Env):
 
         self.previous_beam = current_beam
 
-        return observation, reward, done, info
+        return observation, reward, done, False, info
 
-    def render(self, mode="human"):
+    def render(self):
+        mode = self.render_mode
         assert mode == "rgb_array" or mode == "human"
 
         binning = self.get_binning()
@@ -720,14 +732,16 @@ class ARESEACheetah(ARESEA):
     def __init__(
         self,
         incoming_mode="constant",
-        incoming_values=np.array([80e6,-5e-4,6e-5,3e-4,3e-5,4e-4,4e-5,1e-4,4e-5,0,4e-6]),
+        incoming_values=np.array(
+            [80e6, -5e-4, 6e-5, 3e-4, 3e-5, 4e-4, 4e-5, 1e-4, 4e-5, 0, 4e-6]
+        ),
         misalignment_mode="constant",
         misalignment_values=np.zeros(8),
         abort_if_off_screen=False,
         action_mode="delta",
         include_screen_image_in_info=False,
         magnet_init_mode="constant",
-        magnet_init_values=[10,-10,0,10,0],
+        magnet_init_values=[10, -10, 0, 10, 0],
         reward_mode="negative_objective",
         target_beam_mode="random",
         target_beam_values=None,
@@ -761,17 +775,23 @@ class ARESEACheetah(ARESEA):
         self.misalignment_values = misalignment_values
 
         # Create particle simulation
-        with open("utils/lattice.pkl", "rb") as f:
-            self.simulation = pickle.load(f)
+        # with open("utils/lattice.pkl", "rb") as f:
+        #     self.simulation = pickle.load(f)
+        self.simulation = cheetah.Segment.from_lattice_json(
+            "utils/ares_ea_lattice.json"
+        )
 
     def is_beam_on_screen(self):
         screen = self.simulation.AREABSCR1
-        beam_position = np.array([screen.read_beam.mu_x, screen.read_beam.mu_y])
+        out_beam = screen.get_read_beam()
+        beam_position = np.array([out_beam.mu_x, out_beam.mu_y])
         limits = np.array(screen.resolution) / 2 * np.array(screen.pixel_size)
-        extended_limits = (
-            limits + np.array([screen.read_beam.sigma_x, screen.read_beam.sigma_y]) * 2
-        )
-        return np.all(np.abs(beam_position) < extended_limits)
+        return np.all(np.abs(beam_position) < limits)
+        # limits = np.array(screen.resolution) / 2 * np.array(screen.pixel_size)
+        # extended_limits = (
+        #     limits + np.array([screen.read_beam.sigma_x, screen.read_beam.sigma_y]) * 2
+        # )
+        # return np.all(np.abs(beam_position) < extended_limits)
 
     def get_magnets(self):
         return np.array(
@@ -785,11 +805,11 @@ class ARESEACheetah(ARESEA):
         )
 
     def set_magnets(self, magnets):
-        self.simulation.AREAMQZM1.k1 = magnets[0]
-        self.simulation.AREAMQZM2.k1 = magnets[1]
-        self.simulation.AREAMCVM1.angle = magnets[2]
-        self.simulation.AREAMQZM3.k1 = magnets[3]
-        self.simulation.AREAMCHM1.angle = magnets[4]
+        self.simulation.AREAMQZM1.k1 = torch.tensor(magnets[0], dtype=torch.float32)
+        self.simulation.AREAMQZM2.k1 = torch.tensor(magnets[1], dtype=torch.float32)
+        self.simulation.AREAMCVM1.angle = torch.tensor(magnets[2], dtype=torch.float32)
+        self.simulation.AREAMQZM3.k1 = torch.tensor(magnets[3], dtype=torch.float32)
+        self.simulation.AREAMCHM1.angle = torch.tensor(magnets[4], dtype=torch.float32)
 
     def reset_accelerator(self):
         # New domain randomisation
@@ -800,17 +820,17 @@ class ARESEACheetah(ARESEA):
         else:
             raise ValueError(f'Invalid value "{self.incoming_mode}" for incoming_mode')
         self.incoming = cheetah.ParameterBeam.from_parameters(
-            energy=incoming_parameters[0],
-            mu_x=incoming_parameters[1],
-            mu_xp=incoming_parameters[2],
-            mu_y=incoming_parameters[3],
-            mu_yp=incoming_parameters[4],
-            sigma_x=incoming_parameters[5],
-            sigma_xp=incoming_parameters[6],
-            sigma_y=incoming_parameters[7],
-            sigma_yp=incoming_parameters[8],
-            sigma_s=incoming_parameters[9],
-            sigma_p=incoming_parameters[10],
+            energy=torch.tensor(incoming_parameters[0]),
+            mu_x=torch.tensor(incoming_parameters[1]),
+            mu_xp=torch.tensor(incoming_parameters[2]),
+            mu_y=torch.tensor(incoming_parameters[3]),
+            mu_yp=torch.tensor(incoming_parameters[4]),
+            sigma_x=torch.tensor(incoming_parameters[5]),
+            sigma_xp=torch.tensor(incoming_parameters[6]),
+            sigma_y=torch.tensor(incoming_parameters[7]),
+            sigma_yp=torch.tensor(incoming_parameters[8]),
+            sigma_s=torch.tensor(incoming_parameters[9]),
+            sigma_p=torch.tensor(incoming_parameters[10]),
         )
 
         if self.misalignment_mode == "constant":
@@ -827,15 +847,16 @@ class ARESEACheetah(ARESEA):
         self.simulation.AREABSCR1.misalignment = misalignments[6:8]
 
     def update_accelerator(self):
-        self.simulation(self.incoming)
+        self.simulation.track(self.incoming)
 
     def get_beam_parameters(self):
+        out_beam = self.simulation.AREABSCR1.get_read_beam()
         return np.array(
             [
-                self.simulation.AREABSCR1.read_beam.mu_x,
-                self.simulation.AREABSCR1.read_beam.sigma_x,
-                self.simulation.AREABSCR1.read_beam.mu_y,
-                self.simulation.AREABSCR1.read_beam.sigma_y,
+                out_beam.mu_x,
+                out_beam.sigma_x,
+                out_beam.mu_y,
+                out_beam.sigma_y,
             ]
         )
 
@@ -876,7 +897,7 @@ class ARESEACheetah(ARESEA):
     def get_screen_image(self):
         # Beam image to look like real image by dividing by goodlooking number and
         # scaling to 12 bits
-        return self.simulation.AREABSCR1.reading / 1e9 * 2**12
+        return (self.simulation.AREABSCR1.reading).numpy() / 1e9 * 2**12
 
     def get_binning(self):
         return np.array(self.simulation.AREABSCR1.binning)
