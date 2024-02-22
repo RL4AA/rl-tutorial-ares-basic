@@ -1,5 +1,7 @@
 # Tutorial on Applying Reinforcement Learning to the Particle Accelerator ARES
 
+You can view the tutorial notebook as [html slides here](https://RL4AA.github.io/rl-tutorial-ares-basic/slides.html/#).
+
 ## Getting started
 
 - First, download the material to your local disk by cloning the repository using
