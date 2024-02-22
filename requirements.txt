@@ -1,4 +1,5 @@
 cheetah-accelerator>=0.5.18
+gymnasium
 imageio==2.4.1
 ipywidgets
 jupyterlab

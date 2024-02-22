@@ -1,8 +1,6 @@
 # Slightly modified version of ea_train.py to make it run in the workshop context.
 
-
 import pathlib
-import re
 from functools import partial
 
 import cheetah
@@ -183,7 +181,9 @@ def make_env(config, record_video=False, monitor_filename=None):
     env = Monitor(env, filename=monitor_filename)
     if record_video:
         env = RecordVideo(
-            env, video_folder=f"utils/recordings/{config['wandb_run_name']}"
+            env,
+            video_folder=f"utils/recordings/{config['wandb_run_name']}",
+            disable_logger=True,
         )
     return env
 
@@ -212,7 +212,7 @@ class ARESEA(gym.Env):
         Rendering mode. Choose from `"rgb_array"` or `"human"`.
     """
 
-    metadata = {"render.modes": ["human", "rgb_array"], "video.frames_per_second": 2}
+    metadata = {"render.modes": ["human", "rgb_array"], "render_fps": 4}
 
     def __init__(
         self,
