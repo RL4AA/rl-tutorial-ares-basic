@@ -1,4 +1,4 @@
-name: rl4aa
+name: rl-tutorial
 channels:
   - anaconda-fusion
   - https://conda.anaconda.org/NLeSC

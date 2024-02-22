@@ -2,8 +2,9 @@
 
 ## Getting started
 
-- First, download the material to your local disk by cloning the repository:
-`git clone https://github.com/ansantam/RL4AA23`
+- First, download the material to your local disk by cloning the repository using
+  - https: `git clone https://github.com/RL4AA/rl-tutorial-ares-basic.git`
+  - ssh: `git clone git@github.com:RL4AA/rl-tutorial-ares-basic.git`
 - If you don't have git installed, you can click on the green button that says "Code", and choose to download it as a `.zip` file.
 
 ### Install `ffmpeg`
@@ -16,13 +17,13 @@
 ### Setup the environment locally
 
 - Open terminal app
-- (Suggested) Create a virtual envrionment using `conda` or `venv`.
+- (Suggested) Create a virtual environment using `conda` or `venv`.
 
 #### Using venv
 
 ```bash
-python3 -m venv rl4aa
-source rl4aa/bin/activate
+python3 -m venv rl-tutorial
+source rl-tutorial/bin/activate
 pip3 install -r requirements.txt
 jupyter notebook
 ```
@@ -36,7 +37,7 @@ Instructions to install conda [here](https://docs.conda.io/projects/conda/en/4.6
 
 ```bash
 conda env create -f environment.yml
-conda activate rl4aa
+conda activate rl-tutorial
 jupyter notebook
 ```
 
@@ -46,12 +47,12 @@ jupyter notebook
 #### Using conda + pip
 
 ```bash
-cd path_to_your_folder/RL4AA23
+cd path_to_your_folder/rl-tutorial-ares-basic
 ```
 
 ```bash
-conda create -n rl4aa python=3.10
-conda activate rl4aa
+conda create -n rl-tutorial python=3.10
+conda activate rl-tutorial
 pip3 install -r requirements.txt
 jupyter notebook
 ```
