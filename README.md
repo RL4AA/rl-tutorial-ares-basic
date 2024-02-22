@@ -24,7 +24,7 @@
 ```bash
 python3 -m venv rl-tutorial
 source rl-tutorial/bin/activate
-pip3 install -r requirements.txt
+python -m pip install -r requirements.txt
 jupyter notebook
 ```
 
