@@ -1,0 +1,13 @@
+cheetah-accelerator>=0.5.18
+imageio==2.4.1
+ipywidgets
+jupyterlab
+matplotlib
+moviepy
+names
+opencv-python
+seaborn
+pyyaml
+RISE
+stable-baselines3==1.6.0
+
