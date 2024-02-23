@@ -7623,7 +7623,7 @@ main {
 </ul>
 </li>
 <li>The <strong>incoming beam</strong>: the beam that enters the EA upstream<ul>
-<li>$I = [\mu_x^{(\mathrm{i})},\sigma_x^{(\mathrm{i})},\mu_y^{(\mathrm{i})},\sigma_y^{(\mathrm{i})},\mu_xp^{(\mathrm{i})},\sigma_xp^{(\mathrm{i})},\mu_yp^{(\mathrm{i})},\sigma_yp^{(\mathrm{i})},,\mu_s^{(\mathrm{i})},\sigma_s^{(\mathrm{i})}]$, where $i$ stands for "incoming"</li>
+<li>$I = [\mu_x^{(\mathrm{i})},\sigma_x^{(\mathrm{i})},\mu_y^{(\mathrm{i})},\sigma_y^{(\mathrm{i})},\mu_{xp}^{(\mathrm{i})},\sigma_{xp}^{(\mathrm{i})},\mu_{yp}^{(\mathrm{i})},\sigma_{yp}^{(\mathrm{i})},\mu_s^{(\mathrm{i})},\sigma_s^{(\mathrm{i})}]$, where $i$ stands for "incoming"</li>
 </ul>
 </li>
 <li>The <strong>magnet strengths</strong> and <strong>deflection angles</strong><ul>
@@ -7636,7 +7636,7 @@ main {
 </li>
 </ul>
 <h3 style="color:#038aa1;">Discussion</h3>
-<p style="color:#038aa1;"> $\implies$ Do we know or can we observe the state of the environment?</p>
+<p style="color:#038aa1;"> $\implies$ Do we (fully) know or can we observe the state of the environment?</p>
 </div>
 </div>
 </div>
@@ -7728,12 +7728,16 @@ main {
 <h2 style="color: #b51f2a">About libraries for RL</h2>
 <p>There are many libraries with already implemented RL algorithms, and frameworks to implement an environment to interact with. In this notebook we use:</p>
 <ul>
-<li><a href="https://stable-baselines3.readthedocs.io/">Stable-Baselines3</a> for the agents</li>
-<li><a href="https://www.gymlibrary.dev/">OpenAI Gym</a> for the environment
+<li><a href="https://stable-baselines3.readthedocs.io/">Stable-Baselines3</a> for the RL algorithms</li>
+<li><a href="https://gymnasium.farama.org/">Gymnasium</a> for the environment
 <img alt="No description has been provided for this image" src="img/rl_libraries.png" style="width:60%; margin:auto;"/><p style="clear:both; font-size: small; text-align: center; margin-top:1em;">More info <a href="https://neptune.ai/blog/the-best-tools-for-reinforcement-learning-in-python">here</a></p>
 </li>
 </ul>
-<p><strong>Note:</strong> OpenAI Gym is slowly being succeeded by <a href="https://gymnasium.farama.org/#"><em>Gymnasium</em></a>, a fork of Gym maintained by the Farama Foundation.</p>
+<p>Note:</p>
+<ul>
+<li>Gymnasium is the successor of the <a href="https://www.gymlibrary.dev/">OpenAI Gym</a>.</li>
+<li>Stable-baselines3 now has an early-stage JAX implementation <a href="https://github.com/araffin/sbx">sbx</a>.</li>
+</ul>
 </div>
 </div>
 </div>
@@ -7760,7 +7764,7 @@ main {
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 style="color: #b51f2a">Environment</h2>
-<p>We take all the elements of the RL problem we defined previously and reprensent the tuning task as an <a href="https://www.gymlibrary.dev/">OpenAI Gym</a> environment, which is a standard library for RL tasks.</p>
+<p>We take all the elements of the RL problem we defined previously and represent the tuning task as a <code>gym</code> environment, which is a standard library for RL tasks.</p>
 <p>A custom <code>gym.Env</code> would contain the following parts:</p>
 <ul>
 <li><strong>Initialization</strong>: setup the environment, declares the allowed <code>observation_space</code> and <code>action_space</code></li>
@@ -7769,7 +7773,7 @@ main {
 <li><code>done</code> checks if the current episode should be terminated (reached goal reached, or exceeded some thresholds)</li>
 </ul>
 </li>
-<li><code>render</code> <strong>method</strong>: to visualize the environment (a video,or just some plots)</li>
+<li><code>render</code> <strong>method</strong>: to visualize the environment (a video, or just some plots)</li>
 </ul>
 </div>
 </div>
@@ -7835,7 +7839,7 @@ main {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 style="color: #b51f2a">What is Cheetah?</h2>
 <ul>
-<li>RL algorithms require a large number of samples to learn ($10^5-10^9$), and getting those samples in the real  accelerator is often too costly.<ul>
+<li>RL algorithms require a large number of samples to learn ($10^5-10^9$), and getting those samples in the real accelerator is often too costly.<ul>
 <li>This is why a common approach is to train the agent in simulation, and then deploy it in the real machine</li>
 </ul>
 </li>
@@ -7845,7 +7849,7 @@ main {
 </li>
 <li><strong>Cheetah</strong> is a tensorized approach for transfer matrix tracking, which saves computation time and overhead compared to OCELOT</li>
 </ul>
-<p>More information <a href="https://accelconf.web.cern.ch/ipac2022/papers/wepoms036.pdf">here</a> and <a href="https://github.com/desy-ml/cheetah">here</a></p>
+<p>You can find more information in the <a href="https://arxiv.org/abs/2401.05815">paper</a> and the <a href="https://github.com/desy-ml/cheetah">code repository</a>.</p>
 </div>
 </div>
 </div>
@@ -7854,10 +7858,11 @@ main {
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [6]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Importing the required packages</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
 
 <span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
 <span class="kn">import</span> <span class="nn">names</span>
@@ -7868,7 +7873,6 @@ main {
 
 <span class="kn">from</span> <span class="nn">utils.helpers</span> <span class="kn">import</span> <span class="p">(</span>
     <span class="n">evaluate_ares_ea_agent</span><span class="p">,</span>
-    <span class="n">make_ares_ea_training_videos</span><span class="p">,</span>
     <span class="n">plot_ares_ea_training_history</span><span class="p">,</span>
     <span class="n">show_video</span><span class="p">,</span>
 <span class="p">)</span>
@@ -7887,9 +7891,9 @@ main {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 style="color: #b51f2a">The ARESEA (ARES Experimental Area) Environment</h2>
+<h2 style="color: #b51f2a">The ARES-EA (ARES Experimental Area) Environment</h2>
 <ul>
-<li>We formulated the ARESEA task as a <a href="https://github.com/openai/gym">OpenAI Gym</a> environment, which allows our algorithm to easily interface with both the simulation and real machine backends as shown before.</li>
+<li>We formulated the ARES-EA task as a <code>gym</code> environment, which allows our algorithm to easily interface with both the simulation and real machine backends as shown before.</li>
 <li>In this part, you will get familiar with the environment for the beam focusing and positioning at ARES accelerator.</li>
 </ul>
 <p>Some methods:</p>
@@ -7957,7 +7961,7 @@ main {
 <div class="highlight hl-ipython3"><pre><span></span><span class="n">env</span><span class="o">.</span><span class="n">target_beam_values</span> <span class="o">=</span> <span class="n">target_beam</span>
 <span class="n">env</span><span class="o">.</span><span class="n">reset</span><span class="p">()</span>  <span class="c1">##</span>
 <span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">(</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">7</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">render</span><span class="p">(</span><span class="n">mode</span><span class="o">=</span><span class="s2">"rgb_array"</span><span class="p">))</span>  <span class="c1"># Plot the screen image</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">env</span><span class="o">.</span><span class="n">render</span><span class="p">())</span>  <span class="c1"># Plot the screen image</span>
 </pre></div>
 </div>
 </div>
@@ -7990,7 +7994,7 @@ main {
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3 style="color:#038aa1;">Get familiar with the Gym environment</h3>
 <p style="color:#038aa1;"> $\implies$ Change the magnet values, i.e. the actions</p>
-<p style="color:#038aa1;"> $\implies$ The actions are normalized to 1, so valid values are in the [0, 1] interval</p>
+<p style="color:#038aa1;"> $\implies$ The actions are normalized to 1, so valid values are in the [-1, 1] interval</p>
 <p style="color:#038aa1;"> $\implies$ The values of the <code>action</code> list in the cell below follows this magnet order: [Q1, Q2, CV, Q3, CH]</p>
 </div>
 </div>
@@ -8854,131 +8858,22 @@ $$ \mathrm{obj} = \sum_{i}|b_i^\mathrm{(c)} - b_i^\mathrm{(t)}|$$
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>You will train the agent by executing the cell below:</p>
+<p>You will train the agent by executing the cell below:
+<em>Note</em>: This could take about 10 min on a laptop.</p>
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [3]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Toggle comment to re-run the training (can take very long)</span>
 <span class="o">%</span><span class="k">time</span> train_ares_ea(config)
 </pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="jp-Cell-outputWrapper">
-<div class="jp-Collapser jp-OutputCollapser jp-Cell-outputCollapser">
-</div>
-<div class="jp-OutputArea jp-Cell-outputArea">
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>==&gt; Training agent "Ernest Fairfield"
-Moviepy - Building video /Users/chenran/Workspace/Phd/Projects/rl-tutorial-ares-basic/utils/recordings/Ernest Fairfield/rl-video-episode-0.mp4.
-Moviepy - Writing video /Users/chenran/Workspace/Phd/Projects/rl-tutorial-ares-basic/utils/recordings/Ernest Fairfield/rl-video-episode-0.mp4
-
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>                                                           </pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Moviepy - Done !
-Moviepy - video ready /Users/chenran/Workspace/Phd/Projects/rl-tutorial-ares-basic/utils/recordings/Ernest Fairfield/rl-video-episode-0.mp4
-Moviepy - Building video /Users/chenran/Workspace/Phd/Projects/rl-tutorial-ares-basic/utils/recordings/Ernest Fairfield/rl-video-episode-1.mp4.
-Moviepy - Writing video /Users/chenran/Workspace/Phd/Projects/rl-tutorial-ares-basic/utils/recordings/Ernest Fairfield/rl-video-episode-1.mp4
-
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>                                                             </pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Moviepy - Done !
-Moviepy - video ready /Users/chenran/Workspace/Phd/Projects/rl-tutorial-ares-basic/utils/recordings/Ernest Fairfield/rl-video-episode-1.mp4
-Eval num_timesteps=20000, episode_reward=-16.84 +/- 2.71
-Episode length: 25.00 +/- 0.00
-New best mean reward!
-Moviepy - Building video /Users/chenran/Workspace/Phd/Projects/rl-tutorial-ares-basic/utils/recordings/Ernest Fairfield/rl-video-episode-8.mp4.
-Moviepy - Writing video /Users/chenran/Workspace/Phd/Projects/rl-tutorial-ares-basic/utils/recordings/Ernest Fairfield/rl-video-episode-8.mp4
-
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>                                                           </pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Moviepy - Done !
-Moviepy - video ready /Users/chenran/Workspace/Phd/Projects/rl-tutorial-ares-basic/utils/recordings/Ernest Fairfield/rl-video-episode-8.mp4
-Eval num_timesteps=40000, episode_reward=-7.24 +/- 1.45
-Episode length: 25.00 +/- 0.00
-New best mean reward!
-Eval num_timesteps=60000, episode_reward=-5.87 +/- 1.23
-Episode length: 25.00 +/- 0.00
-New best mean reward!
-Eval num_timesteps=80000, episode_reward=-5.89 +/- 0.97
-Episode length: 25.00 +/- 0.00
-Eval num_timesteps=100000, episode_reward=-7.63 +/- 1.70
-Episode length: 25.00 +/- 0.00
-Moviepy - Building video /Users/chenran/Workspace/Phd/Projects/rl-tutorial-ares-basic/utils/recordings/Ernest Fairfield/rl-video-episode-27.mp4.
-Moviepy - Writing video /Users/chenran/Workspace/Phd/Projects/rl-tutorial-ares-basic/utils/recordings/Ernest Fairfield/rl-video-episode-27.mp4
-
-</pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>                                                           </pre>
-</div>
-</div>
-<div class="jp-OutputArea-child">
-<div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
-<div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Moviepy - Done !
-Moviepy - video ready /Users/chenran/Workspace/Phd/Projects/rl-tutorial-ares-basic/utils/recordings/Ernest Fairfield/rl-video-episode-27.mp4
-Eval num_timesteps=120000, episode_reward=-5.69 +/- 0.72
-Episode length: 25.00 +/- 0.00
-New best mean reward!
-Eval num_timesteps=140000, episode_reward=-6.57 +/- 2.97
-Episode length: 25.00 +/- 0.00
-Eval num_timesteps=160000, episode_reward=-5.39 +/- 0.34
-Episode length: 25.00 +/- 0.00
-New best mean reward!
-Eval num_timesteps=180000, episode_reward=-5.20 +/- 0.72
-Episode length: 25.00 +/- 0.00
-New best mean reward!
-Eval num_timesteps=200000, episode_reward=-4.98 +/- 0.41
-Episode length: 25.00 +/- 0.00
-New best mean reward!
-CPU times: user 7min 18s, sys: 14min 38s, total: 21min 56s
-Wall time: 3min 47s
-</pre>
 </div>
 </div>
 </div>
@@ -9258,8 +9153,8 @@ Run the following cell to evaluate your agent. This is the mean deviation of the
 <li><a href="http://incompleteideas.net/book/the-book.html">Reinforcement Learning: An Introduction</a> - Standard text book on RL.</li>
 </ul>
 <h3 id="Packages">Packages<a class="anchor-link" href="#Packages">¶</a></h3><ul>
-<li><a href="https://www.gymlibrary.ml">Gym</a> - Defacto standard for implementing custom environments. Also provides a library of RL tasks widely used for benchmarking.</li>
-<li><a href="https://github.com/DLR-RM/stable-baselines3">Stable Baslines3</a> - Provides reliable, benchmarked and easy-to-use implementations of the most important RL algorithms.</li>
+<li><a href="https://gymnasium.farama.org/">Gymnasium</a>, (successor of <a href="https://www.gymlibrary.ml">OpenAI Gym</a>) - De facto standard for implementing custom environments. Also provides a library of RL tasks widely used for benchmarking.</li>
+<li><a href="https://github.com/DLR-RM/stable-baselines3">Stable Baselines3</a> - Provides reliable, benchmarked and easy-to-use implementations of the most important RL algorithms.</li>
 <li><a href="https://docs.ray.io/en/latest/rllib/index.html">Ray RLlib</a> - Part of the <em>Ray</em> Python package providing implementations of various RL algorithms with a focus on distributed training.</li>
 </ul>
 </div>
