@@ -1,4 +1,4 @@
-cheetah-accelerator>=0.5.18
+cheetah-accelerator
 gymnasium
 imageio==2.4.1
 ipywidgets

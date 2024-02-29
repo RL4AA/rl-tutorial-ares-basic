@@ -1,0 +1,96 @@
+abort_if_off_screen: false
+action_mode: delta
+batch_size: 100
+filter_action:
+- 0
+- 1
+- 3
+filter_observation:
+- beam
+- magnets
+frame_stack: null
+gamma: 0.99
+incoming_mode: random
+incoming_values: null
+magnet_init_mode: constant
+magnet_init_values: !!python/object/apply:numpy.core.multiarray._reconstruct
+  args:
+  - &id001 !!python/name:numpy.ndarray ''
+  - !!python/tuple
+    - 0
+  - !!binary |
+    Yg==
+  state: !!python/tuple
+  - 1
+  - !!python/tuple
+    - 5
+  - &id002 !!python/object/apply:numpy.dtype
+    args:
+    - f8
+    - false
+    - true
+    state: !!python/tuple
+    - 3
+    - <
+    - null
+    - null
+    - null
+    - -1
+    - -1
+    - 0
+  - false
+  - !!binary |
+    AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==
+misalignment_mode: constant
+misalignment_values: !!python/object/apply:numpy.core.multiarray._reconstruct
+  args:
+  - *id001
+  - !!python/tuple
+    - 0
+  - !!binary |
+    Yg==
+  state: !!python/tuple
+  - 1
+  - !!python/tuple
+    - 8
+  - *id002
+  - false
+  - !!binary |
+    AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+    AAAAAAAAAA==
+n_envs: 40
+n_steps: 40
+normalize_observation: true
+normalize_reward: true
+rescale_action: !!python/tuple
+- -3
+- 3
+reward_mode: sum_of_pixels
+run_name: David Archibald
+sb3_device: auto
+target_beam_mode: constant
+target_beam_values: !!python/object/apply:numpy.core.multiarray._reconstruct
+  args:
+  - *id001
+  - !!python/tuple
+    - 0
+  - !!binary |
+    Yg==
+  state: !!python/tuple
+  - 1
+  - !!python/tuple
+    - 4
+  - *id002
+  - false
+  - !!binary |
+    AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=
+target_mu_x_threshold: .inf
+target_mu_y_threshold: .inf
+target_sigma_x_threshold: null
+target_sigma_y_threshold: null
+threshold_hold: 5
+time_limit: 25
+time_reward: -0.0
+total_timesteps: 300000
+vec_env: subproc
+wandb_run_name: David Archibald
