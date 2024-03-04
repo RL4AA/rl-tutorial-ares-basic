@@ -64,7 +64,6 @@ You need to install the dependencies before running the notebooks.
 Please also run these commands to install `ffmpeg`:
 - OS X: `brew install ffmpeg`
 - Ubuntu: `sudo apt-get install ffmpeg`
-- With pip: `pip install imageio-ffmpeg`
 
 ### Using conda
 
