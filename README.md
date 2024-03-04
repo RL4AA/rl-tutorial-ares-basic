@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/761710489.svg)](https://zenodo.org/doi/10.5281/zenodo.10777476)
+
 # Tutorial on Applying Reinforcement Learning to the Particle Accelerator ARES
 
 You can view the tutorial notebook as [HTML slides here](https://RL4AA.github.io/rl-tutorial-ares-basic/slides.html#/).
@@ -14,7 +16,7 @@ To check if you have it installed, open your terminal and type:
 git --version
 ```
 
-#### Git installation in MacOS
+#### Git installation in macOS
 
 ``` bash
 brew update
@@ -118,6 +120,28 @@ python -m jupyter notebook
 ```
 
 Alternatively, you can use supported Editor to run the jupyter notebooks, e.g. with VS Code.
+
+---
+
+## Citing the tutorial
+
+This tutorial is registered [Zenodo](https://zenodo.org/doi/10.5281/zenodo.10777476).
+Please use this DOI when citing this code:
+
+```bibtex
+@software{chenran_xu_2024_10777477,
+  author       = {Chenran Xu and
+                  Andrea Santamaria Garcia and
+                  Jan Kaiser},
+  title        = {{RL4AA/rl-tutorial-ares-basic: v1.0.0}},
+  month        = {03},
+  year         = {2024},
+  publisher    = {Zenodo},
+  version      = {v1.0.0},
+  doi          = {10.5281/zenodo.10777477},
+  url          = {https://doi.org/10.5281/zenodo.10777477}
+}
+```
 
 ---
 
