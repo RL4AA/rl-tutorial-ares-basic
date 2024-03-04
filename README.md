@@ -60,6 +60,12 @@ cd rl-tutorial-ares-basic
 
 You need to install the dependencies before running the notebooks.
 
+### Install `ffmpeg`
+Please also run these commands to install `ffmpeg`:
+- OS X: `brew install ffmpeg`
+- Ubuntu: `sudo apt-get install ffmpeg`
+- With pip: `pip install imageio-ffmpeg`
+
 ### Using conda
 
 If you don't have conda installed already and want to use conda for environment management, you can install the miniconda as [described here](https://docs.conda.io/projects/miniconda/en/latest/miniconda-install.html).
@@ -69,12 +75,6 @@ If you don't have conda installed already and want to use conda for environment 
 - Install the required packages via `pip install -r requirements.txt`.
 - Additional installation steps:
 
-Please also run these commands to install `ffmpeg`:
-- OS X: `brew install ffmpeg`
-- Ubuntu: `sudo apt-get install ffmpeg`
-- With pip: `pip install imageio-ffmpeg`
-
-Finally, install the notebook extensions if you want to see them in slide mode:
 ```bash
 python -m jupyter contrib nbextension install --user
 python -m jupyter nbextension enable varInspector/main
@@ -99,11 +99,6 @@ Then, install the packages with pip within the activated environment
 ```bash
 python -m pip install -r requirements.txt
 ```
-
-Please also run these commands to install `ffmpeg`:
-- OS X: `brew install ffmpeg`
-- Ubuntu: `sudo apt-get install ffmpeg`
-- With pip: `pip install imageio-ffmpeg`
 
 Finally, install the notebook extensions if you want to see them in slide mode:
 ```bash
