@@ -7543,6 +7543,37 @@ python<span class="w"> </span>-m<span class="w"> </span>jupyter<span class="w"> 
 </div>
 </div>
 </div>
+</div></section></section><section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Importing the required packages</span>
+<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">names</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">gymnasium.wrappers</span> <span class="kn">import</span> <span class="n">RescaleAction</span>
+<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">clear_output</span><span class="p">,</span> <span class="n">display</span>
+<span class="kn">from</span> <span class="nn">stable_baselines3</span> <span class="kn">import</span> <span class="n">PPO</span>
+
+<span class="kn">from</span> <span class="nn">utils.helpers</span> <span class="kn">import</span> <span class="p">(</span>
+    <span class="n">evaluate_ares_ea_agent</span><span class="p">,</span>
+    <span class="n">plot_ares_ea_training_history</span><span class="p">,</span>
+    <span class="n">show_video</span><span class="p">,</span>
+<span class="p">)</span>
+<span class="kn">from</span> <span class="nn">utils.train</span> <span class="kn">import</span> <span class="n">ARESEACheetah</span><span class="p">,</span> <span class="n">make_env</span><span class="p">,</span> <span class="n">read_from_yaml</span>
+<span class="kn">from</span> <span class="nn">utils.train</span> <span class="kn">import</span> <span class="n">train</span> <span class="k">as</span> <span class="n">train_ares_ea</span>
+<span class="kn">from</span> <span class="nn">utils.utils</span> <span class="kn">import</span> <span class="n">NotVecNormalize</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div></section></section><section><section>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
 <div class="jp-Cell-inputWrapper" tabindex="0">
@@ -7563,8 +7594,18 @@ python<span class="w"> </span>-m<span class="w"> </span>jupyter<span class="w"> 
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><img alt="No description has been provided for this image" src="img/the_rl_problem.png" style="width:70%; margin:auto;"/></p>
+</div>
+</div>
+</div>
+</div></section></section><section><section>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 style="color: #b51f2a">Formulating the RL problem</h2>
-<h3>Refresher from the lecture</h3>
 <p>We need to define:</p>
 <ul>
 <li>Actions</li>
@@ -7584,17 +7625,7 @@ python<span class="w"> </span>-m<span class="w"> </span>jupyter<span class="w"> 
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 style="color: #b51f2a">Formulating the RL problem</h2>
-<h3>Refresher from the lecture</h3>
-<p>We need to define:</p>
-<ul>
-<li>Actions</li>
-<li>Observations</li>
-<li>Reward</li>
-<li>Environment</li>
-<li>Agent
-<img alt="No description has been provided for this image" src="img/rl_problem_2.png" style="width:70%; margin:auto;"/></li>
-</ul>
+<p><img alt="No description has been provided for this image" src="img/cumulate_reward.png" style="width:70%; margin:auto;"/></p>
 </div>
 </div>
 </div>
@@ -7605,17 +7636,7 @@ python<span class="w"> </span>-m<span class="w"> </span>jupyter<span class="w"> 
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 style="color: #b51f2a">Formulating the RL problem</h2>
-<h3>Refresher from the lecture</h3>
-<p>We need to define:</p>
-<ul>
-<li>Actions</li>
-<li>Observations</li>
-<li>Reward</li>
-<li>Environment</li>
-<li>Agent
-<img alt="No description has been provided for this image" src="img/rl_problem_2.png" style="width:70%; margin:auto;"/></li>
-</ul>
+<p><img alt="No description has been provided for this image" src="img/the_agent.png" style="width:70%; margin:auto;"/></p>
 </div>
 </div>
 </div>
@@ -7626,17 +7647,7 @@ python<span class="w"> </span>-m<span class="w"> </span>jupyter<span class="w"> 
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h2 style="color: #b51f2a">Formulating the RL problem</h2>
-<h3>Refresher from the lecture</h3>
-<p>We need to define:</p>
-<ul>
-<li>Actions</li>
-<li>Observations</li>
-<li>Reward</li>
-<li>Environment</li>
-<li>Agent
-<img alt="No description has been provided for this image" src="img/rl_problem_2.png" style="width:70%; margin:auto;"/></li>
-</ul>
+<p><img alt="No description has been provided for this image" src="img/markov.png" style="width:70%; margin:auto;"/></p>
 </div>
 </div>
 </div>
@@ -7684,7 +7695,7 @@ python<span class="w"> </span>-m<span class="w"> </span>jupyter<span class="w"> 
 <img alt="No description has been provided for this image" src="img/ares_rl_problem.png" style="width:70%; margin:auto;"/>
 <h3 style="color:#038aa1;">Discussion</h3>
 <p style="color:#038aa1;"> $\implies$  Is the action space continuous or discrete? </p>
-<p style="color:#038aa1;"> $\implies$  Is the problem deterministic or stochastic?</p>
+<p style="color:#038aa1;"> $\implies$  Is the problem fully observable or partially observable?</p>
 </div>
 </div>
 </div>
@@ -7993,37 +8004,6 @@ python<span class="w"> </span>-m<span class="w"> </span>jupyter<span class="w"> 
 <li><strong>Cheetah</strong> is a tensorized approach for transfer matrix tracking, which saves computation time and overhead compared to OCELOT</li>
 </ul>
 <p>You can find more information in the <a href="https://arxiv.org/abs/2401.05815">paper</a> and the <a href="https://github.com/desy-ml/cheetah">code repository</a>.</p>
-</div>
-</div>
-</div>
-</div></section></section><section><section><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs">
-<div class="jp-Cell-inputWrapper" tabindex="0">
-<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
-</div>
-<div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
-<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
-<div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Importing the required packages</span>
-<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
-
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">names</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">gymnasium.wrappers</span> <span class="kn">import</span> <span class="n">RescaleAction</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">clear_output</span><span class="p">,</span> <span class="n">display</span>
-<span class="kn">from</span> <span class="nn">stable_baselines3</span> <span class="kn">import</span> <span class="n">PPO</span>
-
-<span class="kn">from</span> <span class="nn">utils.helpers</span> <span class="kn">import</span> <span class="p">(</span>
-    <span class="n">evaluate_ares_ea_agent</span><span class="p">,</span>
-    <span class="n">plot_ares_ea_training_history</span><span class="p">,</span>
-    <span class="n">show_video</span><span class="p">,</span>
-<span class="p">)</span>
-<span class="kn">from</span> <span class="nn">utils.train</span> <span class="kn">import</span> <span class="n">ARESEACheetah</span><span class="p">,</span> <span class="n">make_env</span><span class="p">,</span> <span class="n">read_from_yaml</span>
-<span class="kn">from</span> <span class="nn">utils.train</span> <span class="kn">import</span> <span class="n">train</span> <span class="k">as</span> <span class="n">train_ares_ea</span>
-<span class="kn">from</span> <span class="nn">utils.utils</span> <span class="kn">import</span> <span class="n">NotVecNormalize</span>
-</pre></div>
-</div>
 </div>
 </div>
 </div>
