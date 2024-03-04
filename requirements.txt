@@ -2,13 +2,17 @@ cheetah-accelerator
 gymnasium
 imageio==2.4.1
 ipywidgets
-jupyterlab
 matplotlib
 moviepy
 names
 opencv-python
 seaborn
 pyyaml
-RISE
 stable-baselines3
+notebook==6.4.12
+jupyter_contrib_nbextensions
+RISE
+traitlets==5.9.0
+ipython
+ipywidgets
 

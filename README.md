@@ -2,64 +2,128 @@
 
 You can view the tutorial notebook as [HTML slides here](https://RL4AA.github.io/rl-tutorial-ares-basic/slides.html#/).
 
+
+## Download the repository
+
+### Get the repository with Git
+
+You will need to have Git previously installed in your computer.
+To check if you have it installed, open your terminal and type:
+
+``` bash
+git --version
+```
+
+#### Git installation in MacOS
+
+``` bash
+brew update
+brew install git
+```
+
+#### Git installation in Linux
+
+In Ubuntu/Debian
+
+``` bash
+sudo apt install git
+```
+
+In CentOS
+
+``` bash
+sudo yum install git
+```
+
+Once you have Git installed open your terminal, go to your desired directory, and type:
+
+``` bash
+git clone https://github.com/RL4AA/rl-tutorial-ares-basic.git
+```
+
+Then enter the downloaded repository:
+``` bash
+cd rl-tutorial-ares-basic
+```
+
+### Get the repository with direct download
+
+Open your terminal, go to your desired directory, and type:
+
+``` bash
+wget https://github.com/RL4AA/rl-tutorial-ares-basic/archive/refs/heads/main.zip
+unzip main.zip
+cd rl-tutorial-ares-basic
+```
+
 ## Getting started
 
-- First, download the material to your local disk by cloning the repository using
-  - HTTPS: `git clone https://github.com/RL4AA/rl-tutorial-ares-basic.git`
-  - ssh: `git clone git@github.com:RL4AA/rl-tutorial-ares-basic.git`
-- If you don't have git installed, you can click on the green button that says `Code`, and choose to download it as a `.zip` file.
+You need to install the dependencies before running the notebooks.
 
-### Install `ffmpeg`
+### Using conda
 
+If you don't have conda installed already and want to use conda for environment management, you can install the miniconda as [described here](https://docs.conda.io/projects/miniconda/en/latest/miniconda-install.html).
+
+- Create a conda env with `conda create -n rl-icfa python=3.10`
+- Activate the environment with `conda activate rl-icfa`
+- Install the required packages via `pip install -r requirements.txt`.
+- Additional installation steps:
+
+Please also run these commands to install `ffmpeg`:
 - OS X: `brew install ffmpeg`
 - Ubuntu: `sudo apt-get install ffmpeg`
 - With pip: `pip install imageio-ffmpeg`
 
-### Set up the environment locally
-
-- Open terminal app
-- (Suggested) Create a virtual environment using `conda` or `venv`.
-
-#### Using conda only
-
-Instructions to install miniconda [here](https://docs.anaconda.com/free/miniconda/miniconda-install/)
-
+Finally, install the notebook extensions if you want to see them in slide mode:
 ```bash
-conda env create -f environment.yml
-conda activate rl-tutorial
-jupyter notebook
+python -m jupyter contrib nbextension install --user
+python -m jupyter nbextension enable varInspector/main
 ```
 
-- Open the tutorial notebook `tutorial.ipynb` in the jupyter server in browser
-- When you are done type `conda deactivate` to deactivate the virtual environment
+- **After the tutorial** you can remove your environment with `conda remove -n rl-icfa --all`
 
-#### Using conda + pip
+### Using venv only
+
+If you do not have conda installed:
+
+Alternatively, you can create the virtual env with `venv` in the standard library
 
 ```bash
-cd path_to_your_folder/rl-tutorial-ares-basic
+python -m venv rl-icfa
 ```
 
-```bash
-conda create -n rl-tutorial python=3.10
-conda activate rl-tutorial
-pip install -r requirements.txt
-jupyter notebook
-```
+and activate the env with $ source <venv>/bin/activate (bash) or C:> <venv>/Scripts/activate.bat (Windows)
 
-- Open the tutorial notebook `tutorial.ipynb` in the jupyter server in browser
-- When you are done type `conda deactivate` to deactivate the virtual environment
-
-#### Using venv
+Then, install the packages with pip within the activated environment
 
 ```bash
-python -m venv rl-tutorial
-source rl-tutorial/bin/activate
 python -m pip install -r requirements.txt
-jupyter notebook
 ```
 
-- Open the tutorial notebook `tutorial.ipynb` in the jupyter server in browser
-- When you are done type `deactivate`
+Please also run these commands to install `ffmpeg`:
+- OS X: `brew install ffmpeg`
+- Ubuntu: `sudo apt-get install ffmpeg`
+- With pip: `pip install imageio-ffmpeg`
+
+Finally, install the notebook extensions if you want to see them in slide mode:
+```bash
+python -m jupyter contrib nbextension install --user
+python -m jupyter nbextension enable varInspector/main
+```
+
+Now you should be able to run the provided notebook.
+
+## Running the tutorial
+
+After installing the package
+
+You can start the jupyter notebook in the terminal, and it will start a browser automatically
+
+```bash
+python -m jupyter notebook
+```
+
+Alternatively, you can use supported Editor to run the jupyter notebooks, e.g. with VS Code.
 
 ---
 
