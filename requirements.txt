@@ -1,7 +1,8 @@
 cheetah-accelerator
 gymnasium
 gym
-imageio==2.5
+# imageio==2.5
+# imageio
 ipywidgets
 ipython
 ipywidgets
@@ -10,6 +11,7 @@ matplotlib
 moviepy==1.0.3
 names
 notebook==6.4.12
+# notebook
 opencv-python
 seaborn
 pyyaml
@@ -18,4 +20,5 @@ RISE
 shimmy
 stable-baselines3
 traitlets==5.9.0
+# traitlets
 
