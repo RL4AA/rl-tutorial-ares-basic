@@ -5,7 +5,6 @@
 
 You can view the tutorial notebook as [HTML slides here](https://RL4AA.github.io/rl-tutorial-ares-basic/slides.html#/).
 
-
 ## Download the repository
 
 ### Get the repository with Git
@@ -13,13 +12,13 @@ You can view the tutorial notebook as [HTML slides here](https://RL4AA.github.io
 You will need to have Git previously installed in your computer.
 To check if you have it installed, open your terminal and type:
 
-``` bash
+```bash
 git --version
 ```
 
 #### Git installation in macOS
 
-``` bash
+```bash
 brew update
 brew install git
 ```
@@ -28,24 +27,25 @@ brew install git
 
 In Ubuntu/Debian
 
-``` bash
+```bash
 sudo apt install git
 ```
 
 In CentOS
 
-``` bash
+```bash
 sudo yum install git
 ```
 
 Once you have Git installed open your terminal, go to your desired directory, and type:
 
-``` bash
+```bash
 git clone https://github.com/RL4AA/rl-tutorial-ares-basic.git
 ```
 
 Then enter the downloaded repository:
-``` bash
+
+```bash
 cd rl-tutorial-ares-basic
 ```
 
@@ -53,7 +53,7 @@ cd rl-tutorial-ares-basic
 
 Open your terminal, go to your desired directory, and type:
 
-``` bash
+```bash
 wget https://github.com/RL4AA/rl-tutorial-ares-basic/archive/refs/heads/main.zip
 unzip main.zip
 cd rl-tutorial-ares-basic
@@ -64,7 +64,9 @@ cd rl-tutorial-ares-basic
 You need to install the dependencies before running the notebooks.
 
 ### Install `ffmpeg`
+
 Please also run these commands to install `ffmpeg`:
+
 - OS X: `brew install ffmpeg`
 - Ubuntu: `sudo apt-get install ffmpeg`
 
@@ -103,6 +105,7 @@ python -m pip install -r requirements.txt
 ```
 
 Finally, install the notebook extensions if you want to see them in slide mode:
+
 ```bash
 python -m jupyter contrib nbextension install --user
 python -m jupyter nbextension enable varInspector/main
