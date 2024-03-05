@@ -37,6 +37,8 @@ In CentOS
 sudo yum install git
 ```
 
+## Downloading the repository
+
 Once you have Git installed open your terminal, go to your desired directory, and type:
 
 ```bash
