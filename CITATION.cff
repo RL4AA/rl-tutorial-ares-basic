@@ -1,0 +1,23 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Xu
+    given-names: Chenran
+    affiliation: Karlsruhe Institute of Technology
+    orcid: "https://orcid.org/0000-0002-5034-2207"
+  - family-names: Santamaria Garcia
+    given-names: Andrea
+    affiliation: Karlsruhe Institute of Technology
+    orcid: "https://orcid.org/0000-0002-7498-7640"
+  - family-names: Kaiser
+    given-names: Jan
+    affiliation: Deutsches Elektronen-Synchrotron DESY
+    orcid: "https://orcid.org/0000-0003-3445-0678"
+
+title: "Tutorial on Applying Reinforcement Learning to the Particle Accelerator ARES"
+date-released: 2024-03-25
+type: software
+version: 1.0.1
+doi: 10.5281/zenodo.10777477
+license: GPL-3.0
+url: "https://github.com/machine-learning-tutorial/neural-networks"

@@ -131,19 +131,19 @@ Alternatively, you can use supported Editor to run the jupyter notebooks, e.g. w
 
 ## Citing the tutorial
 
-This tutorial is registered [Zenodo](https://zenodo.org/doi/10.5281/zenodo.10777476).
-Please use this DOI when citing this code:
+This tutorial is uploaded to [Zenodo](https://zenodo.org/doi/10.5281/zenodo.10777476).
+Please use the following DOI when citing this code:
 
 ```bibtex
-@software{chenran_xu_2024_10777477,
-  author       = {Chenran Xu and
-                  Andrea Santamaria Garcia and
-                  Jan Kaiser},
-  title        = {{RL4AA/rl-tutorial-ares-basic: v1.0.0}},
+@software{xu_2024_10777477,
+  author       = {Xu, Chenran and
+                  Santamaria Garcia, Andrea and
+                  Kaiser, Jan},
+  title        = {Tutorial on Applying Reinforcement Learning to the Particle Accelerator {ARES}},
   month        = {03},
   year         = {2024},
   publisher    = {Zenodo},
-  version      = {v1.0.0},
+  version      = {v1.0.1},
   doi          = {10.5281/zenodo.10777477},
   url          = {https://doi.org/10.5281/zenodo.10777477}
 }
