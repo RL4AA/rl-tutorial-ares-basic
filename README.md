@@ -76,9 +76,8 @@ Please also run these commands to install `ffmpeg`:
 
 If you don't have conda installed already and want to use conda for environment management, you can install the miniconda as [described here](https://docs.conda.io/projects/miniconda/en/latest/miniconda-install.html).
 
-- Create a conda env with `conda create -n rl-icfa python=3.10`
+- Create a conda env from the provided env file `conda env create -f environment.yml`
 - Activate the environment with `conda activate rl-icfa`
-- Install the required packages via `pip install -r requirements.txt`.
 - Additional installation steps:
 
 ```bash
