@@ -13,7 +13,7 @@ from gymnasium import spaces
 from gymnasium.wrappers import (
     FilterObservation,
     FlattenObservation,
-    FrameStack,
+    FrameStackObservation,
     RecordVideo,
     RescaleAction,
     TimeLimit,
@@ -822,13 +822,13 @@ class ARESEACheetah(ARESEA):
         self.incoming = cheetah.ParameterBeam.from_parameters(
             energy=torch.tensor(incoming_parameters[0]),
             mu_x=torch.tensor(incoming_parameters[1]),
-            mu_xp=torch.tensor(incoming_parameters[2]),
+            mu_px=torch.tensor(incoming_parameters[2]),
             mu_y=torch.tensor(incoming_parameters[3]),
-            mu_yp=torch.tensor(incoming_parameters[4]),
+            mu_py=torch.tensor(incoming_parameters[4]),
             sigma_x=torch.tensor(incoming_parameters[5]),
-            sigma_xp=torch.tensor(incoming_parameters[6]),
+            sigma_px=torch.tensor(incoming_parameters[6]),
             sigma_y=torch.tensor(incoming_parameters[7]),
-            sigma_yp=torch.tensor(incoming_parameters[8]),
+            sigma_py=torch.tensor(incoming_parameters[8]),
             sigma_s=torch.tensor(incoming_parameters[9]),
             sigma_p=torch.tensor(incoming_parameters[10]),
         )
