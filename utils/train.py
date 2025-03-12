@@ -643,7 +643,7 @@ class ARESEA(gym.Env):
     def get_incoming_parameters(self):
         """
         Get all physical beam parameters of the incoming beam as NumPy array in order
-        energy, mu_x, mu_xp, mu_y, mu_yp, sigma_x, sigma_xp, sigma_y, sigma_yp, sigma_s,
+        energy, mu_x, mu_px, mu_y, mu_py, sigma_x, sigma_px, sigma_y, sigma_py, sigma_tau,
         sigma_p.
 
         Override with backend-specific imlementation. Optional.
@@ -733,7 +733,8 @@ class ARESEACheetah(ARESEA):
         self,
         incoming_mode="constant",
         incoming_values=np.array(
-            [80e6, -5e-4, 6e-5, 3e-4, 3e-5, 4e-4, 4e-5, 1e-4, 4e-5, 0, 4e-6]
+            [80e6, -5e-4, 6e-5, 3e-4, 3e-5, 4e-4, 4e-5, 1e-4, 4e-5, 0, 4e-6], 
+            dtype='float32'
         ),
         misalignment_mode="constant",
         misalignment_values=np.zeros(8),
@@ -829,7 +830,7 @@ class ARESEACheetah(ARESEA):
             sigma_px=torch.tensor(incoming_parameters[6]),
             sigma_y=torch.tensor(incoming_parameters[7]),
             sigma_py=torch.tensor(incoming_parameters[8]),
-            sigma_s=torch.tensor(incoming_parameters[9]),
+            sigma_tau=torch.tensor(incoming_parameters[9]),
             sigma_p=torch.tensor(incoming_parameters[10]),
         )
 
@@ -841,10 +842,10 @@ class ARESEACheetah(ARESEA):
             raise ValueError(
                 f'Invalid value "{self.misalignment_mode}" for misalignment_mode'
             )
-        self.simulation.AREAMQZM1.misalignment = misalignments[0:2]
-        self.simulation.AREAMQZM2.misalignment = misalignments[2:4]
-        self.simulation.AREAMQZM3.misalignment = misalignments[4:6]
-        self.simulation.AREABSCR1.misalignment = misalignments[6:8]
+        self.simulation.AREAMQZM1.misalignment = torch.tensor(misalignments[0:2])
+        self.simulation.AREAMQZM2.misalignment = torch.tensor(misalignments[2:4])
+        self.simulation.AREAMQZM3.misalignment = torch.tensor(misalignments[4:6])
+        self.simulation.AREABSCR1.misalignment = torch.tensor(misalignments[6:8])
 
     def update_accelerator(self):
         self.simulation.track(self.incoming)
@@ -867,14 +868,14 @@ class ARESEACheetah(ARESEA):
             [
                 self.incoming.energy,
                 self.incoming.mu_x,
-                self.incoming.mu_xp,
+                self.incoming.mu_px,
                 self.incoming.mu_y,
-                self.incoming.mu_yp,
+                self.incoming.mu_py,
                 self.incoming.sigma_x,
-                self.incoming.sigma_xp,
+                self.incoming.sigma_px,
                 self.incoming.sigma_y,
-                self.incoming.sigma_yp,
-                self.incoming.sigma_s,
+                self.incoming.sigma_py,
+                self.incoming.sigma_tau,
                 self.incoming.sigma_p,
             ]
         )
