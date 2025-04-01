@@ -7415,6 +7415,7 @@ main {
                     processEnvironments: true
                 },
                 displayAlign: 'center',
+                messageStyle: 'none',
                 CommonHTML: {
                     linebreaks: {
                     automatic: true
@@ -7552,23 +7553,23 @@ python<span class="w"> </span>-m<span class="w"> </span>jupyter<span class="w"> 
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
 <div class="highlight hl-ipython3"><pre><span></span><span class="c1"># Importing the required packages</span>
-<span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">sleep</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">time</span><span class="w"> </span><span class="kn">import</span> <span class="n">sleep</span>
 
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">names</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">from</span> <span class="nn">gymnasium.wrappers</span> <span class="kn">import</span> <span class="n">RescaleAction</span>
-<span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">clear_output</span><span class="p">,</span> <span class="n">display</span>
-<span class="kn">from</span> <span class="nn">stable_baselines3</span> <span class="kn">import</span> <span class="n">PPO</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">names</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">gymnasium.wrappers</span><span class="w"> </span><span class="kn">import</span> <span class="n">RescaleAction</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">IPython.display</span><span class="w"> </span><span class="kn">import</span> <span class="n">clear_output</span><span class="p">,</span> <span class="n">display</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">stable_baselines3</span><span class="w"> </span><span class="kn">import</span> <span class="n">PPO</span>
 
-<span class="kn">from</span> <span class="nn">utils.helpers</span> <span class="kn">import</span> <span class="p">(</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.helpers</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
     <span class="n">evaluate_ares_ea_agent</span><span class="p">,</span>
     <span class="n">plot_ares_ea_training_history</span><span class="p">,</span>
     <span class="n">show_video</span><span class="p">,</span>
 <span class="p">)</span>
-<span class="kn">from</span> <span class="nn">utils.train</span> <span class="kn">import</span> <span class="n">ARESEACheetah</span><span class="p">,</span> <span class="n">make_env</span><span class="p">,</span> <span class="n">read_from_yaml</span>
-<span class="kn">from</span> <span class="nn">utils.train</span> <span class="kn">import</span> <span class="n">train</span> <span class="k">as</span> <span class="n">train_ares_ea</span>
-<span class="kn">from</span> <span class="nn">utils.utils</span> <span class="kn">import</span> <span class="n">NotVecNormalize</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.train</span><span class="w"> </span><span class="kn">import</span> <span class="n">ARESEACheetah</span><span class="p">,</span> <span class="n">make_env</span><span class="p">,</span> <span class="n">read_from_yaml</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.train</span><span class="w"> </span><span class="kn">import</span> <span class="n">train</span> <span class="k">as</span> <span class="n">train_ares_ea</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">utils.utils</span><span class="w"> </span><span class="kn">import</span> <span class="n">NotVecNormalize</span>
 </pre></div>
 </div>
 </div>
@@ -7883,9 +7884,9 @@ python<span class="w"> </span>-m<span class="w"> </span>jupyter<span class="w"> 
 <ul>
 <li><a href="https://stable-baselines3.readthedocs.io/">Stable-Baselines3</a> for the RL algorithms</li>
 <li><a href="https://gymnasium.farama.org/">Gymnasium</a> for the environment
-<img alt="No description has been provided for this image" src="img/rl_libraries.png" style="width:60%; margin:auto;"/><p style="clear:both; font-size: small; text-align: center; margin-top:1em;">More info <a href="https://neptune.ai/blog/the-best-tools-for-reinforcement-learning-in-python">here</a></p>
-</li>
+<img alt="No description has been provided for this image" src="img/rl_libraries.png" style="width:60%; margin:auto;"/></li>
 </ul>
+<p style="clear:both; font-size: small; text-align: center; margin-top:1em;">More info <a href="https://neptune.ai/blog/the-best-tools-for-reinforcement-learning-in-python">here</a></p>
 <p>Note:</p>
 <ul>
 <li>Gymnasium is the successor of the <a href="https://www.gymlibrary.dev/">OpenAI Gym</a>.</li>
@@ -8220,7 +8221,7 @@ python<span class="w"> </span>-m<span class="w"> </span>jupyter<span class="w"> 
 <span class="n">steps</span> <span class="o">=</span> <span class="mi">10</span>
 
 
-<span class="k">def</span> <span class="nf">change_vertical_corrector</span><span class="p">(</span><span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="n">cv</span><span class="p">,</span> <span class="n">q3</span><span class="p">,</span> <span class="n">ch</span><span class="p">,</span> <span class="n">steps</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">change_vertical_corrector</span><span class="p">(</span><span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="n">cv</span><span class="p">,</span> <span class="n">q3</span><span class="p">,</span> <span class="n">ch</span><span class="p">,</span> <span class="n">steps</span><span class="p">,</span> <span class="n">i</span><span class="p">):</span>
     <span class="n">action</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="n">q1</span><span class="p">,</span> <span class="n">q2</span><span class="p">,</span> <span class="n">cv</span> <span class="o">+</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">steps</span> <span class="o">*</span> <span class="n">i</span><span class="p">,</span> <span class="n">q3</span><span class="p">,</span> <span class="n">ch</span><span class="p">])</span>
     <span class="k">return</span> <span class="n">action</span>
 
