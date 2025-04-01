@@ -20,4 +20,4 @@ type: software
 version: 1.0.1
 doi: 10.5281/zenodo.10777477
 license: GPL-3.0
-url: "https://github.com/machine-learning-tutorial/neural-networks"
+url: "https://github.com/RL4AA/rl-tutorial-ares-basic/"
